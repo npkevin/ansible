@@ -11,6 +11,7 @@ dns_zones: # todo: support for other records
     medxxrr: { type: "A", dest: "192.168.2.152" }
     labxadm1: { type: "A", dest: "192.168.2.201" }
     labxadm2: { type: "A", dest: "192.168.2.202" }
+    minecraft: { type: "A", dest: "192.168.2.220" }
 
     # CNAME
     # jellyfin:   { type: "CNAME", dest: "labxubu.kevnp.lan" }
