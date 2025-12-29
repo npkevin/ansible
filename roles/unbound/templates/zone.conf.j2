@@ -1,0 +1,8 @@
+local-zone: "{{ dns_zone }}." static
+{% for record in records %}
+{% if record.value.type == "A" %}
+local-data: "{{ record.key }}.{{ dns_zone }}. IN A {{ record.value.dest }}"
+{% elif record.value.type == "CNAME" %}
+local-data: "{{ record.key }}.{{ dns_zone }}. IN CNAME {{ record.value.dest }}."
+{% endif %}
+{% endfor %}

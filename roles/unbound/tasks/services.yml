@@ -1,0 +1,61 @@
+---
+- name: systemd stop and disable systemd-resolved
+  systemd:
+    name: systemd-resolved
+    enabled: false
+    state: stopped
+
+- name: copy /etc/resolv.conf (127.0.0.1, kevnp.lan)
+  copy:
+    dest: /etc/resolv.conf
+    content: |
+      nameserver 127.0.0.1
+      search kevnp.lan
+    owner: root
+    group: root
+    mode: "0644"
+
+# Not using root hints
+# - name: update unbound root hints
+#   command: >
+#     wget https://www.internic.net/domain/named.root -qO- | tee /var/lib/unbound/root.hints
+#   args:
+#     creates: /var/lib/unbound/root.hints
+#   register: _r0
+#   changed_when: _r0.rc == 0
+
+- name: template unbound.conf
+  template:
+    src: templates/unbound.conf.j2
+    dest: /etc/unbound/unbound.conf
+    owner: root
+    group: root
+    mode: "0644"
+  notify: restart unbound
+
+- name: create /etc/unbound/local.d folder
+  file:
+    path: /etc/unbound/local.d
+    state: directory
+    owner: root
+    group: root
+    mode: "0755"
+
+- name: template all zone
+  vars: # for template
+    dns_zone: "{{ item.key }}"
+    records: "{{ item.value | dict2items }}"
+  template:
+    src: zone.conf.j2
+    dest: /etc/unbound/local.d/{{ dns_zone }}.conf
+    owner: root
+    group: root
+    mode: "0644"
+  notify: restart unbound
+  loop: "{{ dns_zones | dict2items }}"
+
+- name: systemd enable and start unbound
+  systemd:
+    name: unbound
+    enabled: true
+    state: started

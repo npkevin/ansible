@@ -1,0 +1,14 @@
+---
+- name: group sambashare
+  group:
+    name: sambashare
+    state: present
+
+- name: set smaba password for users
+  no_log: true
+  command:
+    cmd: "smbpasswd -s -a {{ item.key }}"
+    stdin: |
+      {{ item.value.password }}
+      {{ item.value.password }}
+  loop: "{{ stoxnas_samba_users | dict2items }}"

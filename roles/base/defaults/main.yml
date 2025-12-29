@@ -1,0 +1,9 @@
+provision_unbound_ip: "192.168.2.110"
+
+maps:
+  sudo_group:
+    Debian: sudo
+    RedHat: wheel
+  shell:
+    local: /usr/bin/bash
+    service: /usr/sbin/nologin

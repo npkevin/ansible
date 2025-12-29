@@ -1,0 +1,4 @@
+---
+- name: restart apt
+  apt:
+    update_cache: true

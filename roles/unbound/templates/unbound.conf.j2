@@ -1,0 +1,27 @@
+server:
+  verbosity: 1
+  interface: 0.0.0.0
+  interface: ::0
+  access-control: 127.0.0.0/8 allow
+  access-control: 10.0.0.0/8 allow
+  access-control: 192.168.0.0/16 allow
+  do-ip4: yes
+  do-ip6: no
+  do-udp: yes
+  do-tcp: yes
+
+  # minimal hardening
+  hide-identity: yes
+  hide-version: yes
+  qname-minimisation: yes
+  harden-glue: yes
+  harden-dnssec-stripped: yes
+  prefetch: yes
+
+# root-hints: "/var/lib/unbound/root.hints"
+  include: "/etc/unbound/local.d/*.conf"
+
+forward-zone:
+  name: "."
+  forward-addr: 1.1.1.1
+  forward-addr: 1.0.0.1

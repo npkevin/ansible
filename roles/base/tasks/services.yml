@@ -1,0 +1,47 @@
+---
+- name: configure root ssh access
+  lineinfile:
+    path: /etc/ssh/sshd_config
+    regexp: "^{{ item.key }}"
+    line: "{{ item.key }} {{ item.value }}"
+  notify: restart ssh
+  loop: "{{ {
+    'PubkeyAuthentication': 'yes',
+    'PasswordAuthentication': 'no',
+    'PermitRootLogin': 'prohibit-password',
+    } | dict2items }}"
+
+- name: sudo root access for local admins
+  community.general.sudoers:
+    name: "{{ item.key }}"
+    user: "{{ item.key }}"
+    commands: "ALL"
+  when: item.value.root is defined
+  loop: "{{ provision_users.local | dict2items }}"
+
+- name: passwordless sudo for service user
+  community.general.sudoers:
+    name: "{{ item.key }}"
+    user: "{{ item.key }}"
+    commands: ALL
+    nopassword: true
+  when: item.value.insecure_root is defined
+  loop: "{{ provision_users.service | dict2items }}"
+
+- name: distribute public ssh keys
+  ansible.posix.authorized_key:
+    user: "{{ item | basename }}"
+    key: "{{ lookup('file', item) }}"
+  with_fileglob:
+    - files/ssh/id_rsa.pub/*
+    - files/ssh/id_ecdsa.pub/*
+    - files/ssh/id_ed25519.pub/*
+
+- name: enable and start qemu-guest-agent service
+  systemd:
+    name: qemu-guest-agent.service
+    state: started
+    # enabled: true # static, cannot be enabled
+
+- import_tasks: resolved.yml
+  when: "'dns' not in group_names"

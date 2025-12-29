@@ -1,0 +1,4 @@
+.ansible/.lock
+.ansible/secret
+roles/ansible/files/id_ed25519
+roles/base/files/ssh/root

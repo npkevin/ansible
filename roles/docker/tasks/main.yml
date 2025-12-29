@@ -1,0 +1,30 @@
+---
+- name: install docker prerequisites
+  apt:
+    name:
+      - ca-certificates
+      - curl
+
+- name: create keyring directory /etc/apt/keyrings
+  file:
+    path: /etc/apt/keyrings
+    state: directory
+    mode: "0755"
+
+- name: fetch docker GPG key to keyring
+  get_url:
+    url: https://download.docker.com/linux/debian/gpg
+    dest: /etc/apt/keyrings/docker.asc
+    mode: "0755"
+
+- name: add docker repo to apt
+  apt_repository:
+    repo: "deb [signed-by=/etc/apt/keyrings/docker.asc] https://download.docker.com/linux/debian {{ ansible_facts.lsb.codename | default(ansible_facts.distribution_release) }} stable"
+    filename: docker
+    update_cache: true
+
+- name: install
+  apt:
+    name:
+      - docker-ce
+      - docker-ce-cli

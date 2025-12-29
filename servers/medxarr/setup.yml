@@ -1,0 +1,6 @@
+---
+- hosts: media
+  become: true
+  roles: [docker, medxarr]
+
+# use -l for now... check services.yml comment at bottom

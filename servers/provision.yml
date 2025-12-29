@@ -1,0 +1,7 @@
+---
+- hosts: all
+  remote_user: root # initial root access
+  vars:
+    ansible_ssh_private_key_file: ~/ansible/roles/base/files/ssh/root
+  become: true
+  roles: [base]

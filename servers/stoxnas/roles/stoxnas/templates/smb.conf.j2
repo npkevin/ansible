@@ -1,0 +1,15 @@
+[global]
+  workgroup = {{ stoxnas_samba.workgroup | default('WORKGROUP') }}
+  server string = {{ stoxnas_samba.server_string | default(inventory_hostname) }}
+  security = user
+  map to guest = Bad User
+
+  vfs objects = acl_xattr
+  map acl inherit = yes
+  store dos attributes = yes
+
+[data]
+  path = {{ stoxnas_samba.share_path }}
+  browseable = {{ stoxnas_samba.browseable | default('yes') }}
+  read only = {{ stoxnas_samba.read_only | default('no') }}
+  guest ok = {{ stoxnas_samba.guest_ok | default('no') }}

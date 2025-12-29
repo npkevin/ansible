@@ -1,0 +1,29 @@
+PROXY_IP: "192.168.2.101" # todo make a real proxy server
+
+dns_zones: # todo: support for other records
+  kevnp.lan:
+    # A
+    stoxnas:  { type: "A", dest: "192.168.2.60"  }
+    proxmox:  { type: "A", dest: "192.168.2.100" }
+    netxdns:  { type: "A", dest: "192.168.2.110" }
+    labxubu:  { type: "A", dest: "{{ PROXY_IP }}" }
+    medxarr: { type: "A", dest: "192.168.2.151" }
+    medxxrr: { type: "A", dest: "192.168.2.152" }
+    labxadm1: { type: "A", dest: "192.168.2.201" }
+    labxadm2: { type: "A", dest: "192.168.2.202" }
+
+    # CNAME
+    # jellyfin:   { type: "CNAME", dest: "labxubu.kevnp.lan" }
+    # jellyseerr: { type: "CNAME", dest: "labxubu.kevnp.lan" }
+    # radarr:     { type: "CNAME", dest: "labxubu.kevnp.lan" }
+    # sonarr:     { type: "CNAME", dest: "labxubu.kevnp.lan" }
+    # sabnzbd:    { type: "CNAME", dest: "labxubu.kevnp.lan" }
+
+    # todo: CNAME not working
+    jellyfin:   { type: "A", dest: "{{ PROXY_IP }}" }
+    jellyseerr: { type: "A", dest: "{{ PROXY_IP }}" }
+    radarr:     { type: "A", dest: "{{ PROXY_IP }}" }
+    sonarr:     { type: "A", dest: "{{ PROXY_IP }}" }
+    sabnzbd:    { type: "A", dest: "{{ PROXY_IP }}" }
+    radxrr:     { type: "A", dest: "{{ PROXY_IP }}" }
+    sonxrr:     { type: "A", dest: "{{ PROXY_IP }}" }

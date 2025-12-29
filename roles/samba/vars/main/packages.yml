@@ -1,0 +1,7 @@
+samba_packages:
+  - samba
+  - samba-common
+  - samba-vfs-modules
+  - smbclient         # mostly for testing
+  - avahi-daemon      # macOS / mDNS
+  - wsdd2             # Windows network discovery

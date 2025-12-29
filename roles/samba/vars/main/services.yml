@@ -1,0 +1,5 @@
+samba_services:
+  - smbd
+  - nmbd
+  - wsdd2
+  - avahi-daemon

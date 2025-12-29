@@ -1,0 +1,14 @@
+---
+- name: install ansible
+  package:
+    name: ansible
+
+- name: venv for ansible tools
+  command:
+    cmd: python3 -m venv /opt/ansible-venv
+    creates: /opt/ansible-venv/bin/activate
+
+- name: install ansible dev tools (+ansible lint)
+  pip:
+    name: ansible-dev-tools
+    virtualenv: /opt/ansible-venv

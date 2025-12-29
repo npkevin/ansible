@@ -1,0 +1,3 @@
+- hosts: adm
+  become: true
+  roles: [ansible, terraform, docker]

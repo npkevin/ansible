@@ -1,0 +1,19 @@
+# 192.168.2.101 # media
+# 192.168.2.24 # lab1
+
+# netxedge.kevnp.lan
+# labxubu.kevnp.lan
+
+[nas]
+stoxnas.kevnp.lan
+
+[dns]
+netxdns.kevnp.lan
+
+[adm]
+labxadm1.kevnp.lan
+labxadm2.kevnp.lan
+
+[media]
+medxarr.kevnp.lan
+medxxrr.kevnp.lan

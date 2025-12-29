@@ -1,0 +1,30 @@
+---
+- name: update root password
+  user:
+    name: root
+    password: "{{ provision_users.local.root.password }}"
+
+- name: add local users
+  no_log: true
+  user:
+    name: "{{ item.key }}"
+    password: "{{ item.value.password }}"
+    comment: "{{ item.value.comment | default ('') }}"
+    uid: "{{ item.value.uid }}"
+    groups: "{{ item.value.root is defined | ternary(maps.sudo_group[ansible_os_family], '') }}"
+    append: true
+    shell: "{{ item.value.shell | default('/usr/bin/bash') }}"
+  loop: "{{ provision_users.local | dict2items }}"
+
+- name: add service users
+  no_log: true
+  user:
+    name: "{{ item.key }}"
+    password: "{{ item.value.password }}"
+    comment: "{{ item.value.comment | default ('') }}"
+    uid: "{{ item.value.uid }}"
+    groups: "{{ maps.sudo_group[ansible_os_family] }}"
+    append: true
+    shell: "{{ item.value.shell | default('/usr/sbin/nologin') }}"
+    create_home: "{{ item.value.create_home | default(false) }}"
+  loop: "{{ provision_users.service | dict2items }}"

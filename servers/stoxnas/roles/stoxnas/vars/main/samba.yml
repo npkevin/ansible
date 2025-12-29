@@ -1,0 +1,7 @@
+stoxnas_samba:
+  workgroup: WORKGROUP
+  server_string: STOXNAS!
+  share_path: /mnt/md0
+  # browsable:
+  # read_only:
+  # guest_ok:

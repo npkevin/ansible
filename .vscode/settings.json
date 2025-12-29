@@ -1,0 +1,19 @@
+{
+    "files.associations": {
+        "**/**/*.yml": "ansible",
+        "**/**/*.j2": "ansible-jinja",
+        "**/inventory": "ini",
+        "**/host_vars/**/*": "ansible",
+        "**/group_vars/**/*": "ansible",
+    },
+    "ansible.python.interpreterPath": "/opt/ansible-venv/bin/python",
+    "ansible.python.activationScript": "/opt/ansible-venv/bin/activate",
+    "ansible.ansible.path": "/opt/ansible-venv/bin/ansible",
+    "ansible.validation.lint.path": "/opt/ansible-venv/bin/ansible-lint",
+    "editor.rulers": [
+        160
+    ],
+    "files.insertFinalNewline": true,
+    "files.trimFinalNewlines": true,
+    "files.trimTrailingWhitespace": true
+}

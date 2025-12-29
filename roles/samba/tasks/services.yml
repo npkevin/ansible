@@ -1,0 +1,7 @@
+---
+- name: enable and start services
+  service:
+    name: "{{ item }}"
+    enabled: true
+    state: started
+  loop: "{{ samba_services }}"

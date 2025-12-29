@@ -1,0 +1,17 @@
+---
+- name: base packages
+  package:
+    name: "{{ item }}"
+  loop: "{{ base_packages }}"
+
+- name: debian packages
+  package:
+    name: "{{ item }}"
+  loop: "{{ base_debian_packages }}"
+  when: ansible_os_family  == "Debian"
+
+- name: redhat packages
+  package:
+    name: "{{ item }}"
+  loop: "{{ base_redhat_packages }}"
+  when: ansible_os_family  == "RedHat"
