@@ -44,4 +44,3 @@
 # ├─sda14   8:14   0    3M  0 part
 # └─sda15   8:15   0  124M  0 part /boot/efi
 # sdb       8:16   0   64G  0 disk /mnt/app
-# sr0      11:0    1    4M  0 rom
