@@ -1,6 +1,7 @@
 ---
 - name: install packages
-  package:
+  apt:
     name: "{{ item }}"
     state: present
+    update_cache: yes
   loop: "{{ unbound_packages }}"
