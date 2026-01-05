@@ -4,6 +4,11 @@
     name: "{{ item }}"
   loop: "{{ base_packages }}"
 
+- name: install qemu
+  package:
+    name: "qemu-guest-agent"
+  when: ansible_virtualization_type == "kvm"
+
 - name: debian packages
   package:
     name: "{{ item }}"
