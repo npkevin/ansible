@@ -2,7 +2,7 @@
 # /mnt/data
 - name: format 64G disk to ext4
   community.general.filesystem:
-    dev: /dev/sdc # change this (lsblk, should match below)
+    dev: /dev/sdb # change this (lsblk, should match below)
     fstype: ext4
 
 - name: create mount directory /mnt/app
@@ -16,7 +16,7 @@
 - name: mount 64G disk
   ansible.posix.mount:
     path: /mnt/app
-    src: /dev/sdc # change this (lsblk, should match above)
+    src: /dev/sdb # change this (lsblk, should match above)
     fstype: ext4
     state: mounted
 
