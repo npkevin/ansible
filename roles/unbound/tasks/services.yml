@@ -4,6 +4,17 @@
     name: systemd-resolved
     enabled: false
     state: stopped
+  register: _r
+  failed_when:
+    - _r.failed
+    - '"Could not find" not in _r.msg'  # ignore for lxc
+
+- name: touch resolv.conf
+  file:
+    path: /etc/.pve-ignore.resolv.conf
+    state: touch
+    access_time: preserve
+    modification_time: preserve
 
 - name: copy /etc/resolv.conf (127.0.0.1, kevnp.lan)
   copy:
