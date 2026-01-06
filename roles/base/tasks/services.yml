@@ -43,3 +43,28 @@
     state: started
     # enabled: true # static, cannot be enabled
   when: ansible_virtualization_type == "kvm"
+
+# mount dynamic disks from terraform
+- name: create mount directory
+  file:
+    path: "{{ item.mount }}"
+    state: directory
+    owner: root
+    group: root
+    mode: "0755"
+  loop: "{{ dynamic_disks }}"
+
+- name: format disk to ext4
+  community.general.filesystem:
+    fstype: ext4
+    dev: "/dev/disk/by-id/scsi-0QEMU_QEMU_HARDDISK_drive-{{ item.slot }}"
+  loop: "{{ dynamic_disks }}"
+
+- name: mount disk and add to /etc/fstab
+  ansible.posix.mount:
+    path: "{{ item.mount }}"
+    src: "/dev/disk/by-id/scsi-0QEMU_QEMU_HARDDISK_drive-{{ item.slot }}"
+    fstype: ext4
+    opts: defaults,noatime
+    state: mounted
+  loop: "{{ dynamic_disks }}"

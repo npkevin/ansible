@@ -1,5 +1,5 @@
 ---
-# /mnt/md0
+# /mnt/md0, manually added via gui
 - name: create mount point /mnt/md0
   file:
     path: /mnt/md0
@@ -15,32 +15,3 @@
     path: /mnt/md0
     opts: defaults
     state: mounted
-
-# /mnt/app
-- name: format 64G disk to ext4
-  community.general.filesystem:
-    dev: /dev/sdb # change this (lsblk, should match below)
-    fstype: ext4
-
-- name: create mount directory /mnt/app
-  file:
-    path: /mnt/app
-    state: directory
-    owner: root
-    group: root
-    mode: "0755"
-
-- name: mount 64G disk
-  ansible.posix.mount:
-    path: /mnt/app
-    src: /dev/sdb # change this (lsblk, should match above)
-    fstype: ext4
-    state: mounted
-
-# $ ansible-playbook servers/medxarr/setup.yml -l medxarr.kevnp.lan
-# NAME    MAJ:MIN RM  SIZE RO TYPE MOUNTPOINTS
-# sda       8:0    0   16G  0 disk
-# ├─sda1    8:1    0 15.9G  0 part /
-# ├─sda14   8:14   0    3M  0 part
-# └─sda15   8:15   0  124M  0 part /boot/efi
-# sdb       8:16   0   64G  0 disk /mnt/app

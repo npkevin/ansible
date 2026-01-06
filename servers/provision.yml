@@ -1,7 +1,9 @@
 ---
+# This playbook is meant to be called from Terraform only
 - hosts: all
   remote_user: root # initial root access
   vars:
     ansible_ssh_private_key_file: ~/ansible/roles/base/files/ssh/root
+    dynamic_disks: "{{ terraform_disks | from_json | default([]) }}" # -e terraform_disks=${jsonencode([ ... ])}
   become: true
   roles: [base]
