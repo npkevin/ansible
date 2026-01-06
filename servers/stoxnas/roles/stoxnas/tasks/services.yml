@@ -1,4 +1,8 @@
 ---
+# Done before provision
+# root@proxmox:~# nano /etc/pve/lxc/103.conf
+# += mp0: /mnt/md0,mp=mnt/md0
+
 - name: template smb.conf
   template:
     src: smb.conf.j2
