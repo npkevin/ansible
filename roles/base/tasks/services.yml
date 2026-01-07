@@ -12,6 +12,7 @@
     } | dict2items }}"
 
 - name: sudo root access for local admins
+  no_log: true
   community.general.sudoers:
     name: "{{ item.key }}"
     user: "{{ item.key }}"
@@ -36,13 +37,6 @@
     - files/ssh/id_rsa.pub/*
     - files/ssh/id_ecdsa.pub/*
     - files/ssh/id_ed25519.pub/*
-
-- name: enable and start qemu-guest-agent service
-  systemd:
-    name: qemu-guest-agent.service
-    state: started
-    # enabled: true # static, cannot be enabled
-  when: ansible_virtualization_type == "kvm"
 
 # mount disks dynamicly passed from terraform
 - name: create mount directory
