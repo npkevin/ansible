@@ -28,3 +28,25 @@
     shell: "{{ item.value.shell | default('/usr/sbin/nologin') }}"
     create_home: "{{ item.value.create_home | default(false) }}"
   loop: "{{ provision_users.service | dict2items }}"
+
+- name: configure root ssh access
+  lineinfile:
+    path: /etc/ssh/sshd_config
+    regexp: "^{{ item.key }}"
+    line: "{{ item.key }} {{ item.value }}"
+  notify: restart ssh
+  loop: "{{ {
+    'PubkeyAuthentication': 'yes',
+    'PasswordAuthentication': 'no',
+    'PermitRootLogin': 'prohibit-password',
+    } | dict2items }}"
+
+- name: distribute public ssh keys
+  no_log: true
+  ansible.posix.authorized_key:
+    user: "{{ item | basename }}"
+    key: "{{ lookup('file', item) }}"
+  with_fileglob:
+    - files/ssh/id_rsa.pub/*
+    - files/ssh/id_ecdsa.pub/*
+    - files/ssh/id_ed25519.pub/*
