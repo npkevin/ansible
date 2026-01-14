@@ -3,14 +3,14 @@ PROXY_IP: "192.168.2.101" # todo make a real proxy server
 dns_zones: # todo: support for other records
   kevnp.lan:
     # A
-    stoxnas:  { type: "A", dest: "192.168.2.60"  }
-    proxmox:  { type: "A", dest: "192.168.2.100" }
-    netxdns:  { type: "A", dest: "192.168.2.110" }
-    labxubu:  { type: "A", dest: "{{ PROXY_IP }}" }
-    medxarr: { type: "A", dest: "192.168.2.151" }
-    labxadm1: { type: "A", dest: "192.168.2.201" }
-    labxadm2: { type: "A", dest: "192.168.2.202" }
-    minecraft: { type: "A", dest: "192.168.2.220" }
+    stoxnas:    { type: "A", dest: "192.168.2.60"  }
+    proxmox:    { type: "A", dest: "192.168.2.100" }
+    netxdns:    { type: "A", dest: "192.168.2.110" }
+    labxubu:    { type: "A", dest: "192.168.2.101" }
+    medxarr:    { type: "A", dest: "192.168.2.151" }
+    labxadm1:   { type: "A", dest: "192.168.2.201" }
+    labxadm2:   { type: "A", dest: "192.168.2.202" }
+    minecraft:  { type: "A", dest: "192.168.2.220" }
 
     # CNAME
     # jellyfin:   { type: "CNAME", dest: "labxubu.kevnp.lan" }
@@ -25,5 +25,3 @@ dns_zones: # todo: support for other records
     radarr:     { type: "A", dest: "{{ PROXY_IP }}" }
     sonarr:     { type: "A", dest: "{{ PROXY_IP }}" }
     sabnzbd:    { type: "A", dest: "{{ PROXY_IP }}" }
-    radxrr:     { type: "A", dest: "{{ PROXY_IP }}" }
-    sonxrr:     { type: "A", dest: "{{ PROXY_IP }}" }
