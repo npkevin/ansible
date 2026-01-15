@@ -1,4 +1,4 @@
 ---
-- hosts: stoxnas.kevnp.lan
+- hosts: nas
   become: true
   roles: [samba, stoxnas]
