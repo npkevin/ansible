@@ -1,4 +1,4 @@
-# Ansible for my Homelab
+# Ansible for my Homelab 📖
 
 This repo manages my homelab infrastructure with Ansible: base OS hardening,
 user provisioning, Docker hosts, DNS, SMB storage, and admin tooling. It is
