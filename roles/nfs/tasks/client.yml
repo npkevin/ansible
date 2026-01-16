@@ -2,5 +2,5 @@
 - name: install NFS client packages
   package:
     name: "{{ item }}"
-    state: absent
+    state: present
   loop: "{{ nfs_client_packages[ansible_os_family] | default([]) }}"
