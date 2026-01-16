@@ -1,0 +1,13 @@
+---
+- name: install NFS server packages
+  package:
+    name: "{{ item }}"
+    state: present
+  loop: "{{ nfs_server_packages[ansible_os_family] | default([]) }}"
+
+- name: enable and start NFS server services
+  service:
+    name: "{{ item }}"
+    enabled: true
+    state: started
+  loop: "{{ nfs_server_services[ansible_os_family] | default([]) }}"

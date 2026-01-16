@@ -1,4 +1,9 @@
 ---
 - hosts: nas
   become: true
-  roles: [samba, stoxnas]
+  vars:
+    nfs: { server: true }
+  roles:
+    - nfs
+    - samba
+    - stoxnas
