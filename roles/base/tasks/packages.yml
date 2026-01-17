@@ -1,4 +1,16 @@
 ---
+- name: update (apt)
+  apt:
+    update_cache: yes
+    cache_valid_time: 3600
+  when: ansible_pkg_mgr == "apt"
+
+- name: update (dnf/yum)
+  dnf:
+    update_cache: yes
+    cache_valid_time: 3600
+  when: ansible_pkg_mgr in ["dnf", "yum"]
+
 - name: base packages
   package:
     name: "{{ item }}"
