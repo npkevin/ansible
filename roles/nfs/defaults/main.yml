@@ -1,18 +1,28 @@
 ---
-nfs_client_packages:
-  Debian:
-    - nfs-common
-  RedHat:
-    - nfs-utils
+nfs_server_host: stoxnas.kevnp.lan
+nfs_export_base: /mnt/md0
 
-nfs_server_packages:
-  Debian:
-    - nfs-kernel-server
-  RedHat:
-    - nfs-utils
+nfs_mounts: []
+# Example client-side mounts:
+# nfs_mounts:
+#   - name: media
+#     export: /mnt/md0/Library
+#     path: /mnt/library
+#     server: "{{ nfs_server_host }}"
+#     fstype: nfs
+#     opts: rw,sync,hard,intr,noatime,_netdev,x-systemd.automount
+#     state: mounted
+#     mode: "0755"
 
-nfs_server_services:
-  Debian:
-    - nfs-kernel-server
-  RedHat:
-    - nfs-server
+nfs_exports: []
+# Example server-side exports:
+# nfs_exports:
+#   - name: media
+#     path: "{{ nfs_export_base }}/media"
+#     owner: media
+#     group: media
+#     mode: "0775"
+#     fsid: 0  # needed for some filesystems (FUSE/virtfs); unique per export
+#     clients:
+#       - host: 192.168.2.0/24
+#         options: rw,sync,root_squash,no_subtree_check

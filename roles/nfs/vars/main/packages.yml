@@ -1,0 +1,17 @@
+nfs_client_packages:
+  Debian:
+    - nfs-common
+  RedHat:
+    - nfs-utils
+
+nfs_server_packages:
+  Debian:
+    - nfs-kernel-server
+  RedHat:
+    - nfs-utils
+
+nfs_server_services:
+  Debian:
+    - nfs-kernel-server
+  RedHat:
+    - nfs-server

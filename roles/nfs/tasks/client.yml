@@ -4,3 +4,32 @@
     name: "{{ item }}"
     state: present
   loop: "{{ nfs_client_packages[ansible_os_family] | default([]) }}"
+
+- name: create NFS mountpoints directories
+  file:
+    path: "{{ item.path }}"
+    state: directory
+    mode: "{{ item.mode | default('0755') }}"
+  loop: "{{ nfs_mounts }}"
+  when: nfs_mounts | length > 0
+
+- name: mount NFS from server exports
+  mount:
+    path: "{{ item.path }}"
+    src: "{{ item.server | default(nfs_server_host) }}:{{ item.export }}"
+    fstype: "{{ item.fstype | default('nfs') }}"
+    opts: "{{ item.opts | default('rw,sync,hard,intr,noatime,_netdev,x-systemd.automount') }}"
+    state: "{{ item.state | default('mounted') }}"
+  loop: "{{ nfs_mounts }}"
+  when: nfs_mounts | length > 0
+
+# Example client-side mounts:
+# nfs_mounts:
+#   - name: media
+#     export: /mnt/md0/Library
+#     path: /mnt/library
+#     server: "{{ nfs_server_host }}"
+#     fstype: nfs
+#     opts: rw,sync,hard,intr,noatime,_netdev,x-systemd.automount
+#     state: mounted
+#     mode: "0755"
