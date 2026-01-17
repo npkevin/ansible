@@ -1,0 +1,11 @@
+---
+nfs_exports:
+  - name: media
+    path: "{{ nfs_export_base }}/Library"
+    owner: knguyen
+    group: knguyen
+    mode: "0775"
+    fsid: 0 # virtfs
+    clients:
+      - host: 192.168.2.0/24
+        options: rw,sync,root_squash,no_subtree_check

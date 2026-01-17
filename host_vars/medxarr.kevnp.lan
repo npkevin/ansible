@@ -1,1 +1,9 @@
 ---
+nfs_mounts:
+  - name: media
+    export: /mnt/md0/Library
+    path: /mnt/library
+    server: "{{ nfs_server_host }}"
+    fstype: nfs
+    state: mounted
+    mode: "0755"
