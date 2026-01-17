@@ -11,7 +11,9 @@
     state: directory
     mode: "{{ item.mode | default('0755') }}"
   loop: "{{ nfs_mounts }}"
-  when: nfs_mounts | length > 0
+  when:
+    - nfs_mounts | length > 0
+    - (ansible_mounts | default([]) | selectattr('mount', 'equalto', item.path) | list | length) == 0
 
 - name: mount NFS from server exports
   mount:
@@ -22,14 +24,3 @@
     state: "{{ item.state | default('mounted') }}"
   loop: "{{ nfs_mounts }}"
   when: nfs_mounts | length > 0
-
-# Example client-side mounts:
-# nfs_mounts:
-#   - name: media
-#     export: /mnt/md0/Library
-#     path: /mnt/library
-#     server: "{{ nfs_server_host }}"
-#     fstype: nfs
-#     opts: rw,sync,hard,intr,noatime,_netdev,x-systemd.automount
-#     state: mounted
-#     mode: "0755"
