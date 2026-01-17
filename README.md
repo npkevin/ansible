@@ -32,6 +32,7 @@ organized around host groups and targeted playbooks.
 | `terraform` | Terraform tooling |
 | `docker` | Docker host setup |
 | `samba` | SMB services |
+| `nfs` | NFS services |
 | `unbound` | DNS resolver |
 
 ## Post-Provision Setups
