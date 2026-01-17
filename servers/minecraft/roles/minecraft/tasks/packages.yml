@@ -1,7 +1,0 @@
----
-- name: install packages
-  apt:
-    name: "{{ item }}"
-    state: present
-    update_cache: true
-  loop: "{{ minecraft_packages }}"

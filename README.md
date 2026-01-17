@@ -12,7 +12,6 @@ organized around host groups and targeted playbooks.
 | dns | `netxdns.kevnp.lan` | DNS resolver (Unbound) |
 | adm | `labxadm1.kevnp.lan`, `labxadm2.kevnp.lan` | Admin workhorses |
 | media | `medxarr.kevnp.lan` | Media stack |
-| minecraft | `minecraft.kevnp.lan` | Game server |
 
 ## Playbooks
 
@@ -22,7 +21,6 @@ organized around host groups and targeted playbooks.
 | `servers/dns.yml` | `dns` | `unbound` |
 | `servers/stoxnas/setup.yml` | `nas` | `samba`, `stoxnas` |
 | `servers/medxarr/setup.yml` | `media` | `docker`, `medxarr` |
-| `servers/minecraft/setup.yml` | `minecraft` | `docker`, `minecraft` |
 | `servers/provision.yml` | `all` | `base` (Terraform bootstrap) |
 
 ## Roles
@@ -45,8 +43,8 @@ ansible-playbook servers/adm.yml
 # Unbound DNS hosts
 ansible-playbook servers/dns.yml
 
-# Media (limit if needed)
-ansible-playbook servers/medxarr/setup.yml -l medxarr.kevnp.lan
+# Media
+ansible-playbook servers/medxarr/setup.yml
 ```
 
 ## Provisioning flow

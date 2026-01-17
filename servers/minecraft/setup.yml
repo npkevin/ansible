@@ -1,4 +1,0 @@
----
-- hosts: minecraft
-  become: true
-  roles: [docker, minecraft]
