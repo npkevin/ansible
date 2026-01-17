@@ -1,7 +1,7 @@
 ---
 - name: copy ansible's private key
   copy:
-    src: files/id_ed25519
+    src: ~/ansible/.ansible/id_ed25519
     dest: /home/ansible/.ssh/id_ed25519
     owner: ansible
     group: ansible
