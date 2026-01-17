@@ -1,0 +1,3 @@
+---
+# from group_vars/all/vault.yml
+stoxnas_samba_users: "{{ vault_stoxnas_samba_users }}"

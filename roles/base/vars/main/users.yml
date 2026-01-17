@@ -1,0 +1,16 @@
+# 1000–1999 local users
+# 2000–2999 service users
+#
+# openssl passwd -6 "password"
+#
+# provision_users:
+#   local
+#     *:
+#       root: defined
+# provision_service:
+#   local
+#     *:
+#       insecure_root: defined
+
+# from group_vars/all/vault.yml
+provision_users: "{{ vault_provision_users }}"
