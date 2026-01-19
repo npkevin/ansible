@@ -4,6 +4,6 @@
   vars:
     nfs: { server: true }
   roles:
+    - stoxnas
     - nfs
     - samba
-    - stoxnas
