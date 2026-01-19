@@ -2,6 +2,5 @@
 - hosts: media
   become: true
   roles:
-    - nfs
     - docker
     - medxarr

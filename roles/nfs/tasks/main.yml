@@ -1,6 +1,0 @@
----
-- import_tasks: server.yml
-  when: nfs.server | default(false) | bool
-
-- import_tasks: client.yml
-  when: not ( nfs.server| default(false) | bool )
