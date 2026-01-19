@@ -1,0 +1,47 @@
+---
+- name: set enabled and running
+  systemd:
+    name: systemd-resolved
+    enabled: true
+    state: started
+
+- name: set primary dns
+  lineinfile:
+    path: /etc/systemd/resolved.conf
+    regexp: '^(DNS=)'
+    line: 'DNS={{ provision_unbound_ip }}'
+    create: true
+  notify: restart systemd-resolved
+
+- name: set secondary dns
+  lineinfile:
+    path: /etc/systemd/resolved.conf
+    regexp: '^(FallbackDNS=)'
+    line: 'FallbackDNS=1.1.1.1'
+    insertafter: '^(DNS=)'
+    create: true
+  notify: restart systemd-resolved
+
+- name: set domain kevnp.lan
+  lineinfile:
+    path: /etc/systemd/resolved.conf
+    regexp: '^(Domains=)'
+    line: 'Domains=kevnp.lan'
+    insertafter: '^(FallbackDNS=)'
+    create: true
+  notify: restart systemd-resolved
+
+- name: disable stub listener on 127.0.0.53
+  lineinfile:
+    path: /etc/systemd/resolved.conf
+    regexp: '^(DNSStubListener=)'
+    line: 'DNSStubListener=no'
+    insertafter: '^(Domains=)'
+    create: true
+  notify: restart systemd-resolved
+
+- name: symlink resolv.conf
+  file:
+    src: /run/systemd/resolve/resolv.conf
+    dest: /etc/resolv.conf
+    state: link
