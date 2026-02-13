@@ -1,0 +1,16 @@
+---
+- name: create mount point /mnt/md0
+  file:
+    path: /mnt/md0
+    state: directory
+    owner: root
+    group: root
+    mode: "0755"
+
+- name: mount virtiofs to /mnt/md0
+  mount:
+    fstype: virtiofs
+    src: md0
+    path: /mnt/md0
+    opts: defaults
+    state: mounted
