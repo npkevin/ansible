@@ -2,15 +2,19 @@ PROXY_IP: "192.168.2.101" # todo make a real proxy server
 
 dns_zones: # todo: support for other records
   kevnp.lan:
+    proxmox:    { type: "A", dest: "192.168.2.100" }
+    labxubu:    { type: "A", dest: "192.168.2.101" }
+
     # A
     stoxnas:    { type: "A", dest: "192.168.2.60"  }
-    proxmox:    { type: "A", dest: "192.168.2.100" }
     netxdns:    { type: "A", dest: "192.168.2.110" }
-    labxubu:    { type: "A", dest: "192.168.2.101" }
+    netxedge:   { type: "A", dest: "192.168.2.111" }
+
+    medxjelly:  { type: "A", dest: "192.168.2.150" }
     medxarr:    { type: "A", dest: "192.168.2.151" }
+
     labxadm1:   { type: "A", dest: "192.168.2.201" }
     labxadm2:   { type: "A", dest: "192.168.2.202" }
-    minecraft:  { type: "A", dest: "192.168.2.220" }
 
     # CNAME
     # jellyfin:   { type: "CNAME", dest: "labxubu.kevnp.lan" }

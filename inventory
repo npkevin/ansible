@@ -1,3 +1,5 @@
+netxedge.kevnp.lan
+
 [nas]
 stoxnas.kevnp.lan
 
@@ -10,6 +12,16 @@ labxadm2.kevnp.lan
 
 [media]
 medxarr.kevnp.lan
+medxjelly.kevnp.lan
 
-[minecraft]
-minecraft.kevnp.lan
+# helper groups todo: detect automatically
+[lxc]
+netxdns.kevnp.lan
+medxjelly.kevnp.lan
+netxedge.kevnp.lan
+
+[lvm]
+stoxnas.kevnp.lan
+labxadm1.kevnp.lan
+labxadm2.kevnp.lan
+medxarr.kevnp.lan

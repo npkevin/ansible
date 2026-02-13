@@ -43,4 +43,4 @@
   loop: "{{ dynamic_disks }}"
 
 - import_tasks: resolved.yml
-  when: "'dns' not in group_names"
+  when: "'lxc' not in group_names"
