@@ -1,0 +1,5 @@
+---
+- hosts: medxjelly.kevnp.lan
+  become: true
+  roles:
+    - medxjelly

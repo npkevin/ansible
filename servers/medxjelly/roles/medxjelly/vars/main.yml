@@ -1,0 +1,7 @@
+medxjelly_packages: []
+
+medxjelly_config:
+  - { key: "JELLYFIN_CONFIG_DIR", value: "/mnt/data/jellyfin/config"        }
+  - { key: "JELLYFIN_DATA_DIR",   value: "/mnt/data/jellyfin/data"          }
+  - { key: "JELLYFIN_CACHE_DIR",  value: "/mnt/data/jellyfin/cache"         }
+  - { key: "JELLYFIN_LOG_DIR",    value: "/mnt/data/jellyfin/log"           }

@@ -1,0 +1,54 @@
+---
+- name: install jellyfin prerequisites
+  apt:
+    name:
+      - ca-certificates
+      - gnupg
+
+- name: set jellyfin repo vars
+  set_fact:
+    jellyfin_repo_base: "{{ 'debian' if ansible_facts.distribution == 'Debian' else 'ubuntu' }}"
+    jellyfin_suite: "{{ ansible_facts.lsb.codename | default(ansible_facts.distribution_release) }}"
+
+- name: fetch jellyfin gpg key
+  get_url:
+    url: https://repo.jellyfin.org/jellyfin_team.gpg.key
+    dest: /usr/share/keyrings/jellyfin.gpg
+    mode: "0644"
+
+- name: add jellyfin apt repository
+  apt_repository:
+    repo: "deb [signed-by=/usr/share/keyrings/jellyfin.gpg] https://repo.jellyfin.org/{{ jellyfin_repo_base }} {{ jellyfin_suite }} main"
+    filename: jellyfin
+    state: present
+    update_cache: true
+
+- name: install jellyfin
+  apt:
+    name: jellyfin
+    state: present
+
+- name: ensure jellyfin config, data, and cache directories exist
+  file:
+    path: "{{ item.value }}"
+    state: directory
+    owner: jellyfin
+    group: jellyfin
+    mode: "0755"
+  loop: "{{ medxjelly_config }}"
+
+- name: configure jellyfin defualt to use /mnt/data/jellyfin
+  lineinfile:
+    path: /etc/default/jellyfin
+    create: true
+    mode: "0644"
+    line: "{{ item.key }}={{ item.value }}"
+    regexp: "^{{ item.key }}="
+  loop: "{{ medxjelly_config }}"
+  notify: systemd reload
+
+- name: ensure jellyfin service is enabled and running
+  systemd:
+    name: jellyfin
+    enabled: true
+    state: started
