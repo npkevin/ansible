@@ -28,6 +28,13 @@
     name: jellyfin
     state: present
 
+- name: add jellyfin user to media group
+  user:
+    name: jellyfin
+    groups:
+      - media
+    append: true
+
 - name: ensure jellyfin config, data, and cache directories exist
   file:
     path: "{{ item.value }}"
