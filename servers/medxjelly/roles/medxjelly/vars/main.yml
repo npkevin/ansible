@@ -1,4 +1,6 @@
-medxjelly_packages: []
+medxjelly_packages:
+  - pciutils
+  - nvidia-driver
 
 medxjelly_config:
   - { key: "JELLYFIN_CONFIG_DIR", value: "/mnt/data/jellyfin/config"        }

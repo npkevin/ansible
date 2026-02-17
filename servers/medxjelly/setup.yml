@@ -2,4 +2,8 @@
 - hosts: medxjelly.kevnp.lan
   become: true
   roles:
+    - role: repo
+      tags: [non-free]
+      vars:
+        repo_debian_release: bookworm
     - medxjelly
