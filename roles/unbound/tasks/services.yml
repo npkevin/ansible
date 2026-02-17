@@ -43,6 +43,8 @@
     group: root
     mode: "0644"
   notify: restart unbound
+  tags:
+    - update
 
 - name: create /etc/unbound/local.d folder
   file:
@@ -64,9 +66,13 @@
     mode: "0644"
   notify: restart unbound
   loop: "{{ dns_zones | dict2items }}"
+  tags:
+    - update
 
 - name: systemd enable and start unbound
   systemd:
     name: unbound
     enabled: true
     state: started
+  tags:
+    - update
